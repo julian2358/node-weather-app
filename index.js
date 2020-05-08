@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 const bodyParser = require('body-parser')
-const apiKey = process.env.APIKEY;
+const apiKey = '3d10da9e03d2215e70a6a30956b9280b';
 
 
 app.set('view engine', 'ejs')
@@ -26,7 +26,7 @@ request(url, function(err, response,body){
     else{
         let weather = JSON.parse(body)
         if(weather.main == undefined){
-            res.render('index', {weather : null, error : 'Memphis isnt a state'})
+            res.render('index', {weather : null, error : `${city} isnt a valid location`})
         } else{
             let weatherText = `Its ${weather.main.temp} degress in ${weather.name}`
             res.render('index', {weather: weatherText, error:null})
@@ -51,7 +51,7 @@ request(url, function(err, response,body){
 // });
 
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4000
 app.listen(port, ()=>{
     console.log(`This server is running on ${port}`)
 })
